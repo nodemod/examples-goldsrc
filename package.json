@@ -1,0 +1,39 @@
+{
+  "name": "nodemod-examples",
+  "version": "1.0.0",
+  "description": "Comprehensive examples and test suite for nodemod API",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "test": "npm run build && node dist/benchmark.js",
+    "benchmark": "npm run test",
+    "dev": "npm run build:watch"
+  },
+  "keywords": [
+    "nodemod",
+    "half-life",
+    "benchmark",
+    "testing"
+  ],
+  "author": "NodeMod Team",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^4.18.1",
+    "express-static": "^1.2.6",
+    "@nodemod/core": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  }
+}
