@@ -3,7 +3,7 @@ import nodemodCore from '@nodemod/core';
 const player = nodemodCore.player;
 
 // Example 1: Get all connected players info
-nodemodCore.cmd.register('players', (client) => {
+nodemodCore.cmd.registerClient('players', (client) => {
   const allPlayers = player.getAll();
   
   if (allPlayers.length === 0) {
@@ -20,7 +20,7 @@ nodemodCore.cmd.register('players', (client) => {
 });
 
 // Example 2: Get player by different identifiers
-nodemodCore.cmd.register('playerinfo', (client, args) => {
+nodemodCore.cmd.registerClient('playerinfo', (client, args) => {
   if (args.length < 1) {
     nodemodCore.util.messageClient(client, 'Usage: playerinfo <name/id>');
     return;
@@ -58,7 +58,7 @@ Alive: ${playerInfo.isAlive ? 'Yes' : 'No'}`;
 });
 
 // Example 3: Player teleportation
-nodemodCore.cmd.register('teleport', (client, args) => {
+nodemodCore.cmd.registerClient('teleport', (client, args) => {
   if (args.length < 3) {
     nodemodCore.util.messageClient(client, 'Usage: teleport <x> <y> <z>');
     return;
@@ -82,7 +82,7 @@ nodemodCore.cmd.register('teleport', (client, args) => {
 });
 
 // Example 4: Send messages to players
-nodemodCore.cmd.register('announce', (client, args) => {
+nodemodCore.cmd.registerClient('announce', (client, args) => {
   if (args.length < 1) {
     nodemodCore.util.messageClient(client, 'Usage: announce <message>');
     return;
@@ -100,7 +100,7 @@ nodemodCore.cmd.register('announce', (client, args) => {
 });
 
 // Example 5: Health and armor management
-nodemodCore.cmd.register('heal', (client, args) => {
+nodemodCore.cmd.registerClient('heal', (client, args) => {
   let targetPlayer = client;
   let amount = 100;
   
@@ -125,7 +125,7 @@ nodemodCore.cmd.register('heal', (client, args) => {
 });
 
 // Example 6: Player statistics
-nodemodCore.cmd.register('stats', (client, args) => {
+nodemodCore.cmd.registerClient('stats', (client, args) => {
   const targetPlayer = args.length > 0 ? player.getByName(args[0]) : player.getPlayerInfo(client);
   
   if (!targetPlayer) {
@@ -153,7 +153,7 @@ Armor: ${stats.armor}`;
 });
 
 // Example 7: Find players by criteria
-nodemodCore.cmd.register('findplayers', (client, args) => {
+nodemodCore.cmd.registerClient('findplayers', (client, args) => {
   // Find all alive players
   const alivePlayers = player.findPlayers({ isAlive: true });
   
@@ -169,7 +169,7 @@ nodemodCore.cmd.register('findplayers', (client, args) => {
 });
 
 // Example 8: Players in radius
-nodemodCore.cmd.register('nearplayers', (client, args) => {
+nodemodCore.cmd.registerClient('nearplayers', (client, args) => {
   const radius = args.length > 0 ? parseFloat(args[0]) : 500;
   const clientInfo = player.getPlayerInfo(client);
   
@@ -193,7 +193,7 @@ nodemodCore.cmd.register('nearplayers', (client, args) => {
 });
 
 // Example 9: Line of sight check
-nodemodCore.cmd.register('cansee', (client, args) => {
+nodemodCore.cmd.registerClient('cansee', (client, args) => {
   if (args.length < 1) {
     nodemodCore.util.messageClient(client, 'Usage: cansee <player name>');
     return;
@@ -220,7 +220,7 @@ nodemodCore.cmd.register('cansee', (client, args) => {
 });
 
 // Example 10: Speed modification
-nodemodCore.cmd.register('speed', (client, args) => {
+nodemodCore.cmd.registerClient('speed', (client, args) => {
   const speed = args.length > 0 ? parseFloat(args[0]) : 320;
   
   if (isNaN(speed) || speed < 0 || speed > 2000) {
@@ -233,7 +233,7 @@ nodemodCore.cmd.register('speed', (client, args) => {
 });
 
 // Example 11: Different message types
-nodemodCore.cmd.register('msgtest', (client) => {
+nodemodCore.cmd.registerClient('msgtest', (client) => {
   // Send different types of messages
   player.sendMessage(client, 'This is a chat message', 'chat');
   
@@ -251,7 +251,7 @@ nodemodCore.cmd.register('msgtest', (client) => {
 });
 
 // Example 12: Bot creation (if supported)
-nodemodCore.cmd.register('addbot', (client, args) => {
+nodemodCore.cmd.registerClient('addbot', (client, args) => {
   const botName = args.length > 0 ? args[0] : 'Bot' + Math.floor(Math.random() * 1000);
   
   const bot = player.createBot(botName);
@@ -295,7 +295,7 @@ nodemodCore.events.on('dllSpawn', (entity: nodemod.Entity) => {
   }
 });
 
-nodemodCore.cmd.register('damage', (client) => {
+nodemodCore.cmd.registerClient('damage', (client) => {
   const stats = damageStats.get(client.netname) || { dealt: 0, taken: 0 };
   
   nodemodCore.util.messageClient(client, 
@@ -304,7 +304,7 @@ nodemodCore.cmd.register('damage', (client) => {
 });
 
 // Example 15: Respawn player
-nodemodCore.cmd.register('respawnme', (client, args) => {
+nodemodCore.cmd.registerClient('respawnme', (client, args) => {
   const targetPlayer = args.length > 0 ? player.getByName(args[0]) : player.getPlayerInfo(client);
   
   if (!targetPlayer) {

@@ -5,17 +5,17 @@ export function initializeMenuExamples() {
   console.log('Initializing menu system examples...');
 
   // Command to show main menu
-  nodemodCore.cmd.register('mainmenu', (client, args) => {
+  nodemodCore.cmd.registerClient('mainmenu', (client, args) => {
     showMainMenu(client);
   });
 
   // Command to show paginated menu
-  nodemodCore.cmd.register('bigmenu', (client, args) => {
+  nodemodCore.cmd.registerClient('bigmenu', (client, args) => {
     showPaginatedMenu(client);
   });
 
   // Command to show template examples
-  nodemodCore.cmd.register('templates', (client, args) => {
+  nodemodCore.cmd.registerClient('templates', (client, args) => {
     showTemplateExamples(client);
   });
 }

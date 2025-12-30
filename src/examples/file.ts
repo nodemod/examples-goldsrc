@@ -4,7 +4,7 @@ import NodemodFile from '@nodemod/core/file';
 const file = nodemodCore.file;
 
 // Example 1: Basic file loading and cleanup
-nodemodCore.cmd.register('loadfile', (client: nodemod.Entity, args: string[]) => {
+nodemodCore.cmd.registerClient('loadfile', (client: nodemod.Entity, args: string[]) => {
   if (args.length < 1) {
     nodemodCore.util.messageClient(client, 'Usage: loadfile <filename>');
     return;
@@ -29,7 +29,7 @@ nodemodCore.cmd.register('loadfile', (client: nodemod.Entity, args: string[]) =>
 });
 
 // Example 2: File existence and size checking
-nodemodCore.cmd.register('fileinfo', (client: nodemod.Entity, args: string[]) => {
+nodemodCore.cmd.registerClient('fileinfo', (client: nodemod.Entity, args: string[]) => {
   if (args.length < 1) {
     nodemodCore.util.messageClient(client, 'Usage: fileinfo <filename>');
     return;
@@ -47,7 +47,7 @@ nodemodCore.cmd.register('fileinfo', (client: nodemod.Entity, args: string[]) =>
 });
 
 // Example 3: Reading text files with automatic cleanup
-nodemodCore.cmd.register('readtext', (client: nodemod.Entity, args: string[]) => {
+nodemodCore.cmd.registerClient('readtext', (client: nodemod.Entity, args: string[]) => {
   if (args.length < 1) {
     nodemodCore.util.messageClient(client, 'Usage: readtext <filename>');
     return;
@@ -67,7 +67,7 @@ nodemodCore.cmd.register('readtext', (client: nodemod.Entity, args: string[]) =>
 });
 
 // Example 4: Configuration file parsing
-nodemodCore.cmd.register('loadconfig', (client: nodemod.Entity, args: string[]) => {
+nodemodCore.cmd.registerClient('loadconfig', (client: nodemod.Entity, args: string[]) => {
   const configFile = args.length > 0 ? args[0] : 'server.cfg';
   const config = file.loadConfig(configFile);
   
@@ -89,7 +89,7 @@ nodemodCore.cmd.register('loadconfig', (client: nodemod.Entity, args: string[]) 
 });
 
 // Example 5: Resource file validation
-nodemodCore.cmd.register('checkresource', (client: nodemod.Entity, args: string[]) => {
+nodemodCore.cmd.registerClient('checkresource', (client: nodemod.Entity, args: string[]) => {
   if (args.length < 2) {
     nodemodCore.util.messageClient(client, 'Usage: checkresource <type> <name>');
     nodemodCore.util.messageClient(client, 'Types: model, sound, map');
@@ -120,7 +120,7 @@ nodemodCore.cmd.register('checkresource', (client: nodemod.Entity, args: string[
 });
 
 // Example 6: File path utilities
-nodemodCore.cmd.register('filepath', (client: nodemod.Entity, args: string[]) => {
+nodemodCore.cmd.registerClient('filepath', (client: nodemod.Entity, args: string[]) => {
   if (args.length < 1) {
     nodemodCore.util.messageClient(client, 'Usage: filepath <filename>');
     return;
@@ -143,7 +143,7 @@ nodemodCore.cmd.register('filepath', (client: nodemod.Entity, args: string[]) =>
 });
 
 // Example 7: Game directory information
-nodemodCore.cmd.register('gamedir', (client: nodemod.Entity) => {
+nodemodCore.cmd.registerClient('gamedir', (client: nodemod.Entity) => {
   const gameDir = file.getGameDir();
   const commonFiles = [
     NodemodFile.PATHS.CONFIG,
@@ -162,7 +162,7 @@ nodemodCore.cmd.register('gamedir', (client: nodemod.Entity) => {
 });
 
 // Example 8: Batch file operations
-nodemodCore.cmd.register('batchload', (client: nodemod.Entity) => {
+nodemodCore.cmd.registerClient('batchload', (client: nodemod.Entity) => {
   const filesToCheck = [
     'server.cfg',
     'motd.txt',
@@ -185,7 +185,7 @@ nodemodCore.cmd.register('batchload', (client: nodemod.Entity) => {
 });
 
 // Example 9: File comparison
-nodemodCore.cmd.register('comparefiles', (client: nodemod.Entity, args: string[]) => {
+nodemodCore.cmd.registerClient('comparefiles', (client: nodemod.Entity, args: string[]) => {
   if (args.length < 2) {
     nodemodCore.util.messageClient(client, 'Usage: comparefiles <file1> <file2>');
     return;
@@ -214,7 +214,7 @@ nodemodCore.cmd.register('comparefiles', (client: nodemod.Entity, args: string[]
 // Example 10: File watching with cleanup
 let fileWatchers: (() => void)[] = [];
 
-nodemodCore.cmd.register('watchfile', (client: nodemod.Entity, args: string[]) => {
+nodemodCore.cmd.registerClient('watchfile', (client: nodemod.Entity, args: string[]) => {
   if (args.length < 1) {
     nodemodCore.util.messageClient(client, 'Usage: watchfile <filename>');
     return;
@@ -238,14 +238,14 @@ nodemodCore.cmd.register('watchfile', (client: nodemod.Entity, args: string[]) =
   nodemodCore.util.messageClient(client, `Now watching ${filename} for changes`);
 });
 
-nodemodCore.cmd.register('stopwatch', (client: nodemod.Entity) => {
+nodemodCore.cmd.registerClient('stopwatch', (client: nodemod.Entity) => {
   fileWatchers.forEach(stopFn => stopFn());
   fileWatchers = [];
   nodemodCore.util.messageClient(client, 'Stopped all file watchers');
 });
 
 // Example 11: Using loadWithCleanup for custom processing
-nodemodCore.cmd.register('analyzetext', (client: nodemod.Entity, args: string[]) => {
+nodemodCore.cmd.registerClient('analyzetext', (client: nodemod.Entity, args: string[]) => {
   if (args.length < 1) {
     nodemodCore.util.messageClient(client, 'Usage: analyzetext <filename>');
     return;
@@ -283,7 +283,7 @@ nodemodCore.cmd.register('analyzetext', (client: nodemod.Entity, args: string[])
 });
 
 // Example 12: Resource path building
-nodemodCore.cmd.register('buildpath', (client: nodemod.Entity, args: string[]) => {
+nodemodCore.cmd.registerClient('buildpath', (client: nodemod.Entity, args: string[]) => {
   if (args.length < 2) {
     nodemodCore.util.messageClient(client, 'Usage: buildpath <type> <name>');
     nodemodCore.util.messageClient(client, 'Types: model, sound, sprite, map, config');

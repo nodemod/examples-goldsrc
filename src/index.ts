@@ -39,25 +39,29 @@ function initializeExamples() {
   initializeMenuExamples();
   
   nodemodCore.cmd.register('say', (client, args) => {
+    if (!client) return;
     nodemodCore.util.messageClient(client, `You spoke: ${args.join(' ')}\n`);
   });
 
   nodemodCore.cmd.register('say_team', (client, args) => {
+    if (!client) return;
     nodemodCore.util.messageClient(client, `You teamspoke: ${args.join(' ')}\n`);
   });
 
   // Basic command example
   nodemodCore.cmd.register('hello', (client, args) => {
+    if (!client) return;
     nodemodCore.util.messageClient(client, `Hello ${client.netname}! Arguments: ${args.join(' ')}\n`);
   });
 
   // Server info command
   nodemodCore.cmd.register('serverinfo', (client, args) => {
+    if (!client) return;
     const info = `Server Information:
 Map: ${nodemod.mapname}
 Players: ${nodemod.players.filter(p => nodemodCore.util.isValidEntity(p)).length}
 Server Time: ${Math.floor(nodemod.time)} seconds`;
-    
+
     nodemodCore.util.messageClient(client, info);
   });
 

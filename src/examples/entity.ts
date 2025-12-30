@@ -70,7 +70,7 @@ nodemodCore.events.on('dllServerActivate', () => {
 });
 
 // Example 7: Entity distance calculations
-nodemodCore.cmd.register('nearest', (client: nodemod.Entity, args: string[]) => {
+nodemodCore.cmd.registerClient('nearest', (client: nodemod.Entity, args: string[]) => {
   const clientWrapper = entity.wrap(client);
   if (!clientWrapper) return;
   
@@ -96,7 +96,7 @@ nodemodCore.cmd.register('nearest', (client: nodemod.Entity, args: string[]) => 
 });
 
 // Example 8: Entity lighting and illumination
-nodemodCore.cmd.register('checklight', (client: nodemod.Entity) => {
+nodemodCore.cmd.registerClient('checklight', (client: nodemod.Entity) => {
   const clientWrapper = entity.wrap(client);
   if (clientWrapper) {
     const illumination = clientWrapper.getIllum();
@@ -107,7 +107,7 @@ nodemodCore.cmd.register('checklight', (client: nodemod.Entity) => {
 });
 
 // Example 9: Batch entity operations
-nodemodCore.cmd.register('cleanup', (client: nodemod.Entity) => {
+nodemodCore.cmd.registerClient('cleanup', (client: nodemod.Entity) => {
   // Remove all temporary entities
   const removedCount = entity.removeAll({ className: 'info_target' });
   nodemodCore.util.messageClient(client, 
@@ -126,7 +126,7 @@ nodemodCore.events.on('dllServerActivate', () => {
 });
 
 // Example 10b: Entity flags demonstration
-nodemodCore.cmd.register('checkflags', (client: nodemod.Entity) => {
+nodemodCore.cmd.registerClient('checkflags', (client: nodemod.Entity) => {
   const clientWrapper = entity.wrap(client);
   if (clientWrapper) {
     const flags = clientWrapper.flags;
@@ -163,7 +163,7 @@ nodemodCore.events.on('dllServerActivate', () => {
 });
 
 // Example 12: List nearby entities by ID
-nodemodCore.cmd.register('listentities', (client: nodemod.Entity, args: string[]) => {
+nodemodCore.cmd.registerClient('listentities', (client: nodemod.Entity, args: string[]) => {
   const clientWrapper = entity.wrap(client);
   if (!clientWrapper) return;
   

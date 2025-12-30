@@ -49,22 +49,22 @@ function initializeExamples() {
   // Initialize menu system examples
   initializeMenuExamples();
   
-  nodemodCore.cmd.register('say', (client, args) => {
+  nodemodCore.cmd.registerClient('say', (client, args) => {
     nodemodCore.util.messageClient(client, `You spoke: ${args.join(' ')}\n`);
   });
 
-  nodemodCore.cmd.register('say_team', (client, args) => {
+  nodemodCore.cmd.registerClient('say_team', (client, args) => {
     nodemodCore.util.messageClient(client, `You teamspoke: ${args.join(' ')}\n`);
   });
 
   // Basic command example
-  nodemodCore.cmd.register('hello', (client, args) => {
+  nodemodCore.cmd.registerClient('hello', (client, args) => {
     nodemodCore.util.messageClient(client, `Hello ${client.netname}! Arguments: ${args.join(' ')}\n`);
     nodemod.eng.createFakeClient("fucku")
   });
 
   // Server info command
-  nodemodCore.cmd.register('serverinfo2', (client, args) => {
+  nodemodCore.cmd.registerClient('serverinfo2', (client, args) => {
     const info = `Server Information:
 Map: ${nodemod.mapname}
 Players: ${nodemod.players.filter(p => nodemodCore.util.isValidEntity(p)).length}

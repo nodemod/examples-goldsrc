@@ -11,7 +11,7 @@ nodemodCore.events.on('dllServerActivate', () => {
 });
 
 // Example 1: Entity creation and manipulation
-nodemodCore.cmd.register('createtest', (client) => {
+nodemodCore.cmd.registerClient('createtest', (client) => {
   if (!cupboardModelPrecached) {
     nodemodCore.util.messageClient(client, 'Model not precached yet, please wait for server activation');
     return;
@@ -35,7 +35,7 @@ nodemodCore.cmd.register('createtest', (client) => {
 });
 
 // Example 2: Vector and angle operations
-nodemodCore.cmd.register('vectortest', (client) => {
+nodemodCore.cmd.registerClient('vectortest', (client) => {
   const forward = [0, 0, 0];
   const right = [0, 0, 0];
   const up = [0, 0, 0];
@@ -52,7 +52,7 @@ Up: [${up.map(v => v.toFixed(2)).join(', ')}]`;
 });
 
 // Example 3: Tracing (line of sight, collision detection)
-nodemodCore.cmd.register('trace', (client, args) => {
+nodemodCore.cmd.registerClient('trace', (client, args) => {
     const distance = args.length > 0 ? parseFloat(args[0]) : 1000;
 
     // Calculate forward vector from angles manually (fix the math)
@@ -88,7 +88,7 @@ nodemodCore.cmd.register('trace', (client, args) => {
   });
 
 // Example 4: Point contents (what's at a location)
-nodemodCore.cmd.register('contents', (client) => {
+nodemodCore.cmd.registerClient('contents', (client) => {
   const contents = nodemod.eng.pointContents(client.origin);
   
   const contentsMap: { [key: number]: string } = {
@@ -106,7 +106,7 @@ nodemodCore.cmd.register('contents', (client) => {
 });
 
 // Example 5: Lighting and illumination
-nodemodCore.cmd.register('lighting', (client) => {
+nodemodCore.cmd.registerClient('lighting', (client) => {
   const illumination = nodemod.eng.getEntityIllum(client);
   
   // Set different light styles
@@ -120,7 +120,7 @@ nodemodCore.cmd.register('lighting', (client) => {
 });
 
 // Example 6: Sound and particle effects
-nodemodCore.cmd.register('effects', (client, args) => {
+nodemodCore.cmd.registerClient('effects', (client, args) => {
   const effectType = args[0] || 'sound';
   
   switch (effectType.toLowerCase()) {
@@ -149,7 +149,7 @@ nodemodCore.cmd.register('effects', (client, args) => {
 });
 
 // Example 7: Server commands and execution
-nodemodCore.cmd.register('servercmd', (client, args) => {
+nodemodCore.cmd.registerClient('servercmd', (client, args) => {
   if (args.length < 1) {
     nodemodCore.util.messageClient(client, 'Usage: servercmd <command>');
     return;
@@ -173,7 +173,7 @@ nodemodCore.cmd.register('servercmd', (client, args) => {
 });
 
 // Example 8: Random number generation
-nodemodCore.cmd.register('random', (client, args) => {
+nodemodCore.cmd.registerClient('random', (client, args) => {
   const min = args.length > 0 ? parseInt(args[0]) : 1;
   const max = args.length > 1 ? parseInt(args[1]) : 100;
   
@@ -186,7 +186,7 @@ nodemodCore.cmd.register('random', (client, args) => {
 });
 
 // Example 9: Entity search and information
-nodemodCore.cmd.register('findents', (client, args) => {
+nodemodCore.cmd.registerClient('findents', (client, args) => {
   const className = args[0] || 'player';
   let foundCount = 0;
   let message = `Entities with class '${className}':\n`;
@@ -217,7 +217,7 @@ nodemodCore.cmd.register('findents', (client, args) => {
 });
 
 // Example 10: Player information and manipulation
-nodemodCore.cmd.register('playerinfo', (client, args) => {
+nodemodCore.cmd.registerClient('playerinfo', (client, args) => {
   const targetName = args[0] || client.netname;
   
   // Find player by name
@@ -255,7 +255,7 @@ Origin: [${targetEntity.origin.map((v: number) => v.toFixed(1)).join(', ')}]`;
 });
 
 // Example 11: Model operations
-nodemodCore.cmd.register('modelinfo', (client, args) => {
+nodemodCore.cmd.registerClient('modelinfo', (client, args) => {
   const modelName = args[0] || 'models/player.mdl';
   
   try {
@@ -271,7 +271,7 @@ nodemodCore.cmd.register('modelinfo', (client, args) => {
 });
 
 // Example 12: File operations
-nodemodCore.cmd.register('fileinfo', (client, args) => {
+nodemodCore.cmd.registerClient('fileinfo', (client, args) => {
   const filename = args[0] || 'maps/' + nodemod.mapname + '.bsp';
   
   try {
@@ -291,7 +291,7 @@ nodemodCore.cmd.register('fileinfo', (client, args) => {
 });
 
 // Example 13: Map validation and server info
-nodemodCore.cmd.register('mapcheck', (client, args) => {
+nodemodCore.cmd.registerClient('mapcheck', (client, args) => {
   const mapName = args[0] || nodemod.mapname;
   
   const isValid = nodemod.eng.isMapValid(mapName);
@@ -310,7 +310,7 @@ Server Time: ${currentTime.toFixed(2)} seconds`;
 });
 
 // Example 14: Client commands
-nodemodCore.cmd.register('clientcmd', (client, args) => {
+nodemodCore.cmd.registerClient('clientcmd', (client, args) => {
   if (args.length < 1) {
     nodemodCore.util.messageClient(client, 'Usage: clientcmd <command>');
     return;
@@ -324,7 +324,7 @@ nodemodCore.cmd.register('clientcmd', (client, args) => {
 });
 
 // Example 15: Physics and movement
-nodemodCore.cmd.register('physics', (client, args) => {
+nodemodCore.cmd.registerClient('physics', (client, args) => {
   const action = args[0] || 'info';
   
   switch (action.toLowerCase()) {

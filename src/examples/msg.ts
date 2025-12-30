@@ -76,7 +76,7 @@ function broadcastToPVS(origin: number[], message: string) {
 }
 
 // Example 9: Register command to test message functionality
-nodemodCore.cmd.register('test_msg', (client: nodemod.Entity, args: string[]) => {
+nodemodCore.cmd.registerClient('test_msg', (client: nodemod.Entity, args: string[]) => {
   const playerName = client.netname;
   
   switch (args[0]) {

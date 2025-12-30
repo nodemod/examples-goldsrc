@@ -13,7 +13,7 @@ cvar.register('nm_god_mode', '0', nodemod.FCVAR.PROTECTED, 'Admin god mode (prot
 console.log('Custom CVars registered: nm_welcome_message, nm_max_warnings, nm_debug_mode, nm_god_mode');
 
 // Example 2: Basic CVar reading and writing
-nodemodCore.cmd.register('cvartest', (client) => {
+nodemodCore.cmd.registerClient('cvartest', (client) => {
   // Read various CVar types
   const welcomeMsg = cvar.getString('nm_welcome_message');
   const maxWarnings = cvar.getInt('nm_max_warnings');
@@ -34,7 +34,7 @@ const welcomeCVar = cvar.wrap('nm_welcome_message');
 const debugCVar = cvar.wrap('nm_debug_mode');
 
 if (welcomeCVar && debugCVar) {
-  nodemodCore.cmd.register('setwelcome', (client, args) => {
+  nodemodCore.cmd.registerClient('setwelcome', (client, args) => {
     if (args.length < 1) {
       nodemodCore.util.messageClient(client, `Current welcome: "${welcomeCVar.value}"`);
       return;
@@ -44,14 +44,14 @@ if (welcomeCVar && debugCVar) {
     nodemodCore.util.messageClient(client, `Welcome message set to: "${welcomeCVar.value}"`);
   });
   
-  nodemodCore.cmd.register('toggledebug', (client) => {
+  nodemodCore.cmd.registerClient('toggledebug', (client) => {
     debugCVar.bool = !debugCVar.bool;
     nodemodCore.util.messageClient(client, `Debug mode: ${debugCVar.bool ? 'ON' : 'OFF'}`);
   });
 }
 
 // Example 4: Reading common server CVars
-nodemodCore.cmd.register('serverconfig', (client) => {
+nodemodCore.cmd.registerClient('serverconfig', (client) => {
   const serverInfo = {
     hostname: cvar.hostname?.value || 'Unknown',
     maxPlayers: cvar.maxplayers?.int || 0,
@@ -75,7 +75,7 @@ Cheats: ${serverInfo.cheats ? 'ENABLED' : 'DISABLED'}`;
 });
 
 // Example 5: Batch CVar operations
-nodemodCore.cmd.register('resetcvars', (client) => {
+nodemodCore.cmd.registerClient('resetcvars', (client) => {
   const customCVars = ['nm_welcome_message', 'nm_max_warnings', 'nm_debug_mode'];
   
   customCVars.forEach(name => {
@@ -90,7 +90,7 @@ nodemodCore.cmd.register('resetcvars', (client) => {
 });
 
 // Example 6: Batch set multiple CVars
-nodemodCore.cmd.register('setgamemode', (client, args) => {
+nodemodCore.cmd.registerClient('setgamemode', (client, args) => {
   const mode = args[0] || 'deathmatch';
   
   let cvarSettings: { [key: string]: string | number } = {};
@@ -133,7 +133,7 @@ nodemodCore.cmd.register('setgamemode', (client, args) => {
 // Example 7: CVar monitoring/watching
 let gravityWatcher: (() => void) | null = null;
 
-nodemodCore.cmd.register('watchgravity', (client) => {
+nodemodCore.cmd.registerClient('watchgravity', (client) => {
   if (gravityWatcher) {
     gravityWatcher();
     gravityWatcher = null;
@@ -150,7 +150,7 @@ nodemodCore.cmd.register('watchgravity', (client) => {
 });
 
 // Example 8: CVar validation and bounds checking
-nodemodCore.cmd.register('setgravity', (client, args) => {
+nodemodCore.cmd.registerClient('setgravity', (client, args) => {
   if (args.length < 1) {
     const current = cvar.getFloat('sv_gravity');
     nodemodCore.util.messageClient(client, `Current gravity: ${current}`);
@@ -176,7 +176,7 @@ nodemodCore.cmd.register('setgravity', (client, args) => {
 });
 
 // Example 9: Check if CVars exist before using
-nodemodCore.cmd.register('checkcvars', (client) => {
+nodemodCore.cmd.registerClient('checkcvars', (client) => {
   const testCVars = ['sv_gravity', 'maxplayers', 'hostname', 'nonexistent_cvar'];
   
   let message = 'CVar existence check:\n';
@@ -190,7 +190,7 @@ nodemodCore.cmd.register('checkcvars', (client) => {
 });
 
 // Example 10: Using CVar pointers for performance
-nodemodCore.cmd.register('fastgravity', (client, args) => {
+nodemodCore.cmd.registerClient('fastgravity', (client, args) => {
   if (args.length < 1) {
     nodemodCore.util.messageClient(client, 'Usage: fastgravity <value>');
     return;
@@ -204,7 +204,7 @@ nodemodCore.cmd.register('fastgravity', (client, args) => {
 });
 
 // Example 11: Get all registered custom CVars
-nodemodCore.cmd.register('listcustomcvars', (client) => {
+nodemodCore.cmd.registerClient('listcustomcvars', (client) => {
   const registered = cvar.getRegistered();
   
   if (registered.size === 0) {
@@ -225,7 +225,7 @@ nodemodCore.cmd.register('listcustomcvars', (client) => {
 });
 
 // Example 12: Admin-only CVar changes
-nodemodCore.cmd.register('admincvar', (client, args) => {
+nodemodCore.cmd.registerClient('admincvar', (client, args) => {
   if (args.length < 2) {
     nodemodCore.util.messageClient(client, 'Usage: admincvar <name> <value>');
     return;

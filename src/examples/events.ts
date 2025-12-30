@@ -99,7 +99,7 @@ events.on('dllStartFrame', () => {
 });
 
 // Example 10: Command to list event listeners
-nodemodCore.cmd.register('listevents', (client) => {
+nodemodCore.cmd.registerClient('listevents', (client) => {
   const eventTypes = [
     'dllClientConnect',
     'dllClientDisconnect', 
@@ -121,7 +121,7 @@ nodemodCore.cmd.register('listevents', (client) => {
 });
 
 // Example 11: Async event waiting
-nodemodCore.cmd.register('waitforspawn', async (client) => {
+nodemodCore.cmd.registerClient('waitforspawn', async (client) => {
   nodemodCore.util.messageClient(client, 'Waiting for next spawn event...');
   
   try {
@@ -160,7 +160,7 @@ events.on('engClientCommand', (entity: nodemod.Entity) => {
 });
 
 // Example 14: Clean up specific event listeners
-nodemodCore.cmd.register('clearevents', (client) => {
+nodemodCore.cmd.registerClient('clearevents', (client) => {
   // Remove all StartFrame listeners to reduce overhead
   events.clearListeners('dllStartFrame');
   nodemodCore.util.messageClient(client, 'StartFrame event listeners cleared');

@@ -3,14 +3,14 @@ import nodemodCore from '@nodemod/core';
 const cmd = nodemodCore.cmd;
 
 // Example 1: Basic command registration using the register method
-cmd.register('say_hello', (client: nodemod.Entity, args: string[]) => {
+cmd.registerClient('say_hello', (client: nodemod.Entity, args: string[]) => {
   const playerName = client.netname;
   nodemodCore.util.messageClient(client, `Hello ${playerName}!`);
   console.log(`Player ${playerName} used say_hello command`);
 });
 
 // Example 2: Command with arguments
-cmd.register('say_greet', (client: nodemod.Entity, args: string[]) => {
+cmd.registerClient('say_greet', (client: nodemod.Entity, args: string[]) => {
   const playerName = client.netname;
   const target = args[0] || 'World';
   nodemodCore.util.messageClient(client, `${playerName} greets ${target}!`);
@@ -20,7 +20,7 @@ cmd.register('say_greet', (client: nodemod.Entity, args: string[]) => {
 cmd.add({
   name: 'say_info',
   type: 'client',
-  handler: (ctx) => {
+  handler: (ctx: any) => {
     const playerName = ctx.client.netname;
     const message = `Player: ${playerName}, Command: ${ctx.text}, Args: ${ctx.args.join(', ')}`;
     nodemodCore.util.messageClient(ctx.client, message);
@@ -29,7 +29,7 @@ cmd.add({
 });
 
 // Example 4: Server command execution
-cmd.register('say_time', (client: nodemod.Entity) => {
+cmd.registerClient('say_time', (client: nodemod.Entity) => {
   // Execute a server command to get current time
   cmd.run('status');
   const playerName = client.netname;
@@ -37,7 +37,7 @@ cmd.register('say_time', (client: nodemod.Entity) => {
 });
 
 // Example 5: Command with validation
-cmd.register('say_admin', (client: nodemod.Entity, args: string[]) => {
+cmd.registerClient('say_admin', (client: nodemod.Entity, args: string[]) => {
   const playerName = client.netname;
   
   // Basic validation example

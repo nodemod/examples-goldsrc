@@ -30,7 +30,7 @@ nodemodCore.events.on('dllClientConnect', (client) => {
 });
 
 // Example 3: Client-side sound command (with server ready check)
-nodemodCore.cmd.register('playsound', (client: nodemod.Entity, args: string[]) => {
+nodemodCore.cmd.registerClient('playsound', (client: nodemod.Entity, args: string[]) => {
   if (!serverReady) {
     nodemodCore.util.messageClient(client, 'Server not ready yet, sounds unavailable');
     return;
@@ -86,7 +86,7 @@ nodemodCore.events.on('dllServerActivate', () => {
 });
 
 // Example 7: Stop sound on entity (with server ready check)
-nodemodCore.cmd.register('stopsound', (client: nodemod.Entity) => {
+nodemodCore.cmd.registerClient('stopsound', (client: nodemod.Entity) => {
   if (!serverReady) {
     nodemodCore.util.messageClient(client, 'Server not ready yet, sounds unavailable');
     return;
