@@ -18,17 +18,17 @@ events.on('dllClientConnect', (entity, name, address, rejectReason) => {
   });
 });
 
-// Example 2: Event with priority (higher priority executes first)
+// Example 2: Disconnect tracking
 events.on('dllClientDisconnect', (entity) => {
   const playerId = nodemod.eng.indexOfEdict(entity);
   const playerData = connectedPlayers.get(playerId);
-  
+
   if (playerData) {
     const sessionTime = (Date.now() - playerData.connectTime) / 1000;
     console.log(`Player ${playerData.name} disconnected after ${sessionTime.toFixed(1)} seconds`);
     connectedPlayers.delete(playerId);
   }
-}, { priority: 10 });
+});
 
 // Example 3: One-time event listener
 events.once('dllServerActivate', (edict, edictCount, maxClients) => {
@@ -98,25 +98,9 @@ events.on('dllStartFrame', () => {
   }
 });
 
-// Example 10: Command to list event listeners
+// Example 10: Command to show event status
 nodemodCore.cmd.registerClient('listevents', (client) => {
-  const eventTypes = [
-    'dllClientConnect',
-    'dllClientDisconnect', 
-    'dllSpawn',
-    'dllStartFrame',
-    'dllTouch',
-    'dllUse'
-  ] as const;
-  
-  let message = 'Active event listeners:\n';
-  eventTypes.forEach(eventName => {
-    const listeners = events.getListeners(eventName);
-    if (listeners.length > 0) {
-      message += `${eventName}: ${listeners.length} listener(s)\n`;
-    }
-  });
-  
+  const message = 'Event system is active. Use nodemod.on() for low-level hooks.';
   nodemodCore.util.messageClient(client, message);
 });
 
@@ -162,7 +146,7 @@ events.on('engClientCommand', (entity: nodemod.Entity) => {
 // Example 14: Clean up specific event listeners
 nodemodCore.cmd.registerClient('clearevents', (client) => {
   // Remove all StartFrame listeners to reduce overhead
-  events.clearListeners('dllStartFrame');
+  nodemod.clearListeners('dllStartFrame');
   nodemodCore.util.messageClient(client, 'StartFrame event listeners cleared');
 });
 
