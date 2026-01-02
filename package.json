@@ -23,7 +23,8 @@
   "license": "MIT",
   "type": "commonjs",
   "dependencies": {
-    "@nodemod/core": "*"
+    "@nodemod/core": "*",
+    "@nodemod/admin": "*"
   },
   "devDependencies": {
     "typescript": "^5.0.0",
