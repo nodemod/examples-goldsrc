@@ -50,7 +50,7 @@ class ExamplePlugin extends BasePlugin implements Plugin {
         this.logAdminAction(entity, 'hello', null, { target });
     }
 
-    onUnload(): void {
+    override onUnload(): void {
         console.log('[Example] Plugin unloaded!');
     }
 }
