@@ -61,7 +61,7 @@ nodemod.on('engClientCommand', (entity) => {
   console.log(`[DEBUG] engClientCommand fired!`);
   console.log(`[DEBUG] client:`, entity.netname || 'unknown');
   if (entity.flags & nodemod.FL.FAKECLIENT) {
-    nodemod.setMetaResult(nodemod.META_RES.SUPERCEDE);
+    nodemod.setMetaResult(nodemod.MRES.SUPERCEDE);
   }
 });
 
@@ -75,7 +75,7 @@ nodemod.on('dllClientCommand', (client, commandText) => {
 nodemod.on('engCmdArgs', () => {
   if (g_fakeCommandState.active) {
     console.log('engCmdArgs called, returned ', g_fakeCommandState.commandString);
-    nodemod.setMetaResult(nodemod.META_RES.SUPERCEDE);
+    nodemod.setMetaResult(nodemod.MRES.SUPERCEDE);
 
     // Handle say/say_team bug like rcbotold
     if (g_fakeCommandState.commandString.startsWith('say ')) {
@@ -95,7 +95,7 @@ nodemod.on('engCmdArgv', (argc) => {
     console.log(`[DEBUG] args array:`, JSON.stringify(g_fakeCommandState.args));
     console.log(`[DEBUG] returning:`, JSON.stringify(g_fakeCommandState.args[argc]));
     console.log(`[DEBUG] result length:`, g_fakeCommandState.args[argc].length);
-    nodemod.setMetaResult(nodemod.META_RES.SUPERCEDE);
+    nodemod.setMetaResult(nodemod.MRES.SUPERCEDE);
     return g_fakeCommandState.args[argc] || '';
   }
   return '';
@@ -104,7 +104,7 @@ nodemod.on('engCmdArgv', (argc) => {
 nodemod.on('engCmdArgc', () => {
   if (g_fakeCommandState.active) {
     console.log('engCmdArgc called, returned ', g_fakeCommandState.argCount);
-    nodemod.setMetaResult(nodemod.META_RES.SUPERCEDE);  
+    nodemod.setMetaResult(nodemod.MRES.SUPERCEDE);  
     return g_fakeCommandState.argCount;
   }
   return 0;
